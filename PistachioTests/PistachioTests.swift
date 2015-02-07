@@ -12,7 +12,7 @@ import XCTest
 import LlamaKit
 import Pistachio
 
-class Person {
+class Person: Model {
     class var name: Lens<Person, String?> { return Lens(get: { person in person.name }, set: { (inout person: Person, name) in person.name = name; }) }
     var name: String?
 
@@ -22,14 +22,14 @@ class Person {
     class var children: Lens<Person, [Person]> { return Lens(get: { person in person.children }, set: { (inout person: Person, children) in person.children = children }) }
     var children: [Person] = []
 
-    init() {}
+    required init() {}
 
     init(name: String) {
         self.name = name
     }
 }
 
-let DictionaryTransformer: ValueTransformer<AnyObject, [String: AnyObject], NSError> = ({
+let DictionaryTransformer: ValueTransformerOf<AnyObject, [String: AnyObject], NSError> = ({
     let transformClosure: AnyObject -> Result<[String: AnyObject], NSError> = { value in
         switch value {
         case let value as [String: AnyObject]:
@@ -43,10 +43,10 @@ let DictionaryTransformer: ValueTransformer<AnyObject, [String: AnyObject], NSEr
         return success(value)
     }
 
-    return ValueTransformer(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
+    return ValueTransformerOf(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
 })()
 
-let StringValueTransformer: ValueTransformer<String, AnyObject, NSError> = ({
+let StringValueTransformer: ValueTransformerOf<String, AnyObject, NSError> = ({
     let transformClosure: String -> Result<AnyObject, NSError> = { value in
         return success(value)
     }
@@ -60,10 +60,10 @@ let StringValueTransformer: ValueTransformer<String, AnyObject, NSError> = ({
         }
     }
 
-    return ValueTransformer(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
+    return ValueTransformerOf(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
 })()
 
-let ArrayValueTransformer: ValueTransformer<[AnyObject], AnyObject, NSError> = ({
+let ArrayValueTransformer: ValueTransformerOf<[AnyObject], AnyObject, NSError> = ({
     let transformClosure: [AnyObject] -> Result<AnyObject, NSError> = { value in
         return success(value)
     }
@@ -77,15 +77,14 @@ let ArrayValueTransformer: ValueTransformer<[AnyObject], AnyObject, NSError> = (
         }
     }
 
-    return ValueTransformer(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
+    return ValueTransformerOf(transformClosure: transformClosure, reverseTransformClosure: reverseTransformClosure)
 })()
 
 let adapter: DictionaryAdapter<Person, AnyObject, NSError> = fix { adapter in
-    let lens: Lens<Result<Person, NSError>, Result<String?, NSError>> = lift(Person.name)
     return DictionaryAdapter(specification: [
         "name": transform(lift(Person.name), lift(StringValueTransformer, String())),
-        "father": transform(lift(Person.father), lift(lift(adapter, Person()), [String: AnyObject]())),
-        "children": transform(lift(Person.children), lift(lift(adapter, Person())) >>> ArrayValueTransformer)
+        "father": transform(lift(Person.father), lift(adapter, [String: AnyObject]())),
+        "children": transform(lift(Person.children), lift(adapter).compose(ArrayValueTransformer))
     ], dictionaryTansformer: DictionaryTransformer)
 }
 

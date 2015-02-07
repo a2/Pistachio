@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC2077CF1A8544D7005A9CF2 /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2077CE1A8544D7005A9CF2 /* Adapter.swift */; };
+		DC2078381A867EB3005A9CF2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2078371A867EB3005A9CF2 /* Model.swift */; };
 		DC3927E41A85365C00982AC1 /* LlamaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC3927E31A85365C00982AC1 /* LlamaKit.framework */; };
 		DC3927E61A85369C00982AC1 /* LlamaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC3927E31A85365C00982AC1 /* LlamaKit.framework */; };
 		DC492A121A83BB59007B52D6 /* Pistachio.h in Headers */ = {isa = PBXBuildFile; fileRef = DC492A111A83BB59007B52D6 /* Pistachio.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		DC2077CE1A8544D7005A9CF2 /* Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
+		DC2078371A867EB3005A9CF2 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		DC3927E31A85365C00982AC1 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LlamaKit.framework; path = Carthage/Build/iOS/LlamaKit.framework; sourceTree = "<group>"; };
 		DC492A0C1A83BB59007B52D6 /* Pistachio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pistachio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC492A101A83BB59007B52D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				DC492A111A83BB59007B52D6 /* Pistachio.h */,
 				DC2077CE1A8544D7005A9CF2 /* Adapter.swift */,
 				DC492A281A83BB73007B52D6 /* Lens.swift */,
+				DC2078371A867EB3005A9CF2 /* Model.swift */,
 				DC492A2D1A83BD33007B52D6 /* Utils.swift */,
 				DC492A351A84096D007B52D6 /* ValueTransformer.swift */,
 				DC492A0F1A83BB59007B52D6 /* Supporting Files */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC2078381A867EB3005A9CF2 /* Model.swift in Sources */,
 				DC2077CF1A8544D7005A9CF2 /* Adapter.swift in Sources */,
 				DC492A361A84096D007B52D6 /* ValueTransformer.swift in Sources */,
 				DC492A291A83BB73007B52D6 /* Lens.swift in Sources */,
